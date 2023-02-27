@@ -25,46 +25,35 @@ class lab2 {
             }
         }
 
-        //это сообщение нужно закодировать
         //абвгдежзийклмнопрстуфхцчшщъыьэюя
+        val table = "абвгдежзийклмнопрстуфхцшщъыьэюя".toList()
+
+        //это сообщение нужно закодировать
+
         fun code(message: String, key: String){
             val newMessage = message.replace("\\s".toRegex(), "")//удаляю пробелы из сообщения
-            val table = "абвгдежзийклмнопрстуфхцшщъыьэюя".toList()
-
             var codeMessage = ""
-            val tableLastIndex = table.size - 1
 
             var i = 0
             while (i < newMessage.length){
-                var j = 0;
-                while (j < key.length && i < newMessage.length){
-                    var pos = table.indexOf(key[j]) + table.indexOf(newMessage[i])
-                    pos -= (pos / tableLastIndex)*table.size
-                    codeMessage += table[pos]
-                    i += 1
-                    j += 1
-                }
+                val keyPos = i.mod(key.length)
+                val pos = (table.indexOf(key[keyPos]) + table.indexOf(newMessage[i])).mod(table.size)
+                codeMessage += table[pos]
+                i += 1
             }
             println(codeMessage)
         }
 
         fun decode(message: String, key: String){
             val newMessage = message.replace("\\s".toRegex(), "")//удаляю пробелы из сообщения
-            val table = "абвгдежзийклмнопрстуфхцшщъыьэюя".toList()
-
             var decodeMessage = ""
-            val tableLastIndex = table.size - 1
 
             var i = 0
             while (i < newMessage.length){
-                var j = 0;
-                while (j < key.length && i < newMessage.length){
-                    var pos = table.indexOf(newMessage[i]) - table.indexOf(key[j]) + table.size
-                    pos -= (pos / tableLastIndex)*table.size
-                    decodeMessage += table[pos]
-                    i += 1
-                    j += 1
-                }
+                val keyPos = i.mod(key.length)
+                val pos = (table.indexOf(newMessage[i]) - table.indexOf(key[keyPos]) + table.size).mod(table.size)
+                decodeMessage += table[pos]
+                i += 1
             }
             println(decodeMessage)
         }
