@@ -1,68 +1,81 @@
 fun main(args: Array<String>) {
-    lab2.start()
-//    var command = -1
-//    while (command != 3) {
-//        println("Шифровать строку - 1, дешифровать - 2, выйти - 3")
-//        command = readLine()!!.toInt()
-//        when (command) {
-//            1 -> {
-//                print("message: ")
-//                val message = readLine()!!
-//                print("key: ")
-//                val key = readLine()!!
-//                code(message, key)
-//            }
-//
-//            2 -> {
-//                print("message: ")
-//                val message = readLine()!!
-//                print("key: ")
-//                val key = readLine()!!
-//                decode(message, key)
-//            }
-//        }
-//    }
+//    lab2.start()
+    var command = -1
+    while (command != 3) {
+        println("Шифровать строку - 1, дешифровать - 2, выйти - 3")
+        command = readLine()!!.toInt()
+        when (command) {
+            1 -> {
+                print("message: ")
+                val message = readLine()!!
+                print("key: ")
+                val key = readLine()!!
+                code(message, key)
+            }
+
+            2 -> {
+                print("message: ")
+                val message = readLine()!!
+                print("key: ")
+                val key = readLine()!!
+                decode(message, key)
+            }
+        }
+    }
 }
-val table = "абвгдежзийклмнопрстуфхцчшщъыьэюя".toList()
+val table = "абвгдежзийклмнопрстуфхцшщъыьэюя".toList()
 fun getEncryptIndex(charIndex: Int, keyIndex: Int): Int{
-    var result = 0;
+    var result = 0
     result = (charIndex + keyIndex).mod(table.size)
     if(result == 0){
-        result = 32
+        result = 31
     }
-    return 1
+    return result - 1
 }
 
+
+//        public static char[] getAutoKey(char[] key, char[] Text)
+//        {
+//            Char[] result = new char[Text.Length];
+//            for(int i = 0; i < key.Length; i++)
+//            {
+//                result[i] = key[i];
+//            }
+//            for(int j = key.Length; j < Text.Length; j++)
+//            {
+//                result[j] = Text[j - key.Length];
+//            }
+//            return result;
+//        }
 fun code(message: String, key: String){
     val newMessage = message.replace("\\s".toRegex(), "")//удаляю пробелы из сообщения
 
 
-    var autoKey = ArrayList<Char>()
-    for(c in key){
-        autoKey.add(c)
-    }
-    for(c in newMessage){
-        autoKey.add(c)
-    }
-    for(c in newMessage){
-        //table[]
-    }
+    var autoKey: MutableList<Char> = ArrayList<Char>()
 
-
+    for(i in 0 until  key.length){
+        autoKey.add(key[i])
+    }
+    for(i in key.length until newMessage.length){
+        autoKey.add(newMessage[i-key.length])
+    }
+//
+//    for(c in key){
+//        autoKey.add(c)
+//    }
+//    for(c in newMessage){
+//        autoKey.add(c)
+//    }
     var codeMessage = ""
+
+    for(i in 0 until newMessage.length){
+        codeMessage+= table[getEncryptIndex(table.indexOf(newMessage[i]), table.indexOf(autoKey[i]))]
+    }
+
+
+
     val tableLastIndex = table.size - 1
 
-    var i = 0
-    while (i < newMessage.length){
-        var j = 0;
-        while (j < key.length && i < newMessage.length){
-            var pos = table.indexOf(key[j]) + table.indexOf(newMessage[i])
-            pos -= (pos / tableLastIndex)*table.size
-            codeMessage += table[pos]
-            i += 1
-            j += 1
-        }
-    }
     println(codeMessage)
 }
 
