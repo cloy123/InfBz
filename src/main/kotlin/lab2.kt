@@ -3,7 +3,7 @@ class lab2 {
         fun start() {
             var command = -1
             while (command != 3) {
-                println("Шифровать строку - 1, дешифровать - 2, выйти - 3")
+                println("Шифровать строку - 1, расшифровать - 2, выйти - 3")
                 command = readLine()!!.toInt()
                 when (command) {
                     1 -> {
