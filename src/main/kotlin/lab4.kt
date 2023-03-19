@@ -1,3 +1,5 @@
+import java.io.File
+
 class lab4 {
     class KeyMessage(val key: String, val message: String){}
     companion object {
@@ -18,9 +20,13 @@ class lab4 {
                         print("key: ")
                         val key = readLine()!!
                         val keyMessage = code(message, key)
-                        println()
-                        println("Расшифрование")
-                        decode(keyMessage.message, keyMessage.key)
+                        val file = File("C:\\Desktop\\message.txt")
+                        val file2 = File("C:\\Desktop\\key.txt")
+                        file.writeText(keyMessage.message)
+                        file2.writeText(keyMessage.key)
+//                        println()
+//                        println("Расшифрование")
+//                        decode(keyMessage.message, keyMessage.key)
                     }
 
                     2 -> {

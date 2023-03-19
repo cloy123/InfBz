@@ -37,7 +37,7 @@ class lab3 {
             for (i in key.length until newMessage.length) {
                 autoKey.add(newMessage[i - key.length])
             }
-            println(autoKey)
+            println("autoKey: " + autoKey)
 
             var codeMessage = ""
 
@@ -66,8 +66,6 @@ class lab3 {
                     autoKey.add(codeMessage[i])
                 }
             }
-            println(newMessage.toCharArray())
-            println(autoKey.toCharArray())
             println(codeMessage.toCharArray())
         }
     }
