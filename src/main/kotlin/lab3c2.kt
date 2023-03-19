@@ -25,8 +25,8 @@ class lab3c2 {
                     }
 
                     2 -> {
-                        val file = File("C:\\Desktop\\message.txt")
-                        val file2 = File("C:\\Desktop\\key.txt")
+                        val file = File("message.txt")
+                        val file2 = File("key.txt")
                         val byteMessage = file.readBytes()
                         val byteKey = file2.readBytes()
                         println("message: ${byteMessage.decodeToString()}")
@@ -44,14 +44,11 @@ class lab3c2 {
             val byteKey = padKey(key.toByteArray(), byteMessage.size)
 
             val ciphertext = ByteArray(byteMessage.size)
-            for(b in byteMessage){
-                println(b)
-            }
             for (i in byteMessage.indices) {
                 ciphertext[i] = (byteMessage[i] xor byteKey[i])
             }
-            val file = File("C:\\Desktop\\message.txt")
-            val file2 = File("C:\\Desktop\\key.txt")
+            val file = File("message.txt")
+            val file2 = File("key.txt")
             file2.writeBytes(byteKey)
             file.writeBytes(ciphertext)
 

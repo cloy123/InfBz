@@ -20,8 +20,8 @@ class lab4 {
                         print("key: ")
                         val key = readLine()!!
                         val keyMessage = code(message, key)
-                        val file = File("C:\\Desktop\\message.txt")
-                        val file2 = File("C:\\Desktop\\key.txt")
+                        val file = File("message.txt")
+                        val file2 = File("key.txt")
                         file.writeText(keyMessage.message)
                         file2.writeText(keyMessage.key)
 //                        println()
