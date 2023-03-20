@@ -7,12 +7,16 @@ class lab5 {
         fun start() {
             // Генерируем два случайных приватных ключа
             val privateA = generatePrivateKey()
+            println("private A = " + privateA)
             val privateB = generatePrivateKey()
+            println("private B = " + privateB)
 
 
             // Вычисляем открытые ключи для каждого участника
             val publicA = generatePublicKey(privateA)
+            println("public A = " + publicA)
             val publicB = generatePublicKey(privateB)
+            println("public B = " + publicB)
 
             // Обмен открытыми ключами
             val sharedSecretA = generateSharedSecret(privateA, publicB)

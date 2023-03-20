@@ -48,6 +48,7 @@ class lab4 {
             }
 
             val blocks = cutStringIntoBlocks(newMessage)
+            //чтобы ключ был равен хотябы половине блока
             newKey = correctKeyWord(newKey, newMessage.length/(2 * blocks.size))
             newKey = stringToBinaryFormat(newKey)
 
@@ -116,6 +117,7 @@ class lab4 {
             return output
         }
 
+        //вычисление ключа для следующего раунда шифрования. циклический сдвиг >> 2
         private fun keyToNextRound(key: String): String {
             var output = key
             for(i in 0 until shiftKey){
@@ -125,6 +127,7 @@ class lab4 {
             return output
         }
 
+        //вычисление ключа для следующего раунда расшифровки. циклический сдвиг << 2
         private fun keyToPrevRound(key: String): String {
             var output = key
             for (i in 0 until shiftKey){
