@@ -5,6 +5,36 @@ fun main() {
     lab6.start()
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fun lab6c2(){
     val p = 3.0
     val q = 7.0

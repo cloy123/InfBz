@@ -50,6 +50,7 @@ class lab4 {
             val blocks = cutStringIntoBlocks(newMessage)
             //чтобы ключ был равен хотябы половине блока
             newKey = correctKeyWord(newKey, newMessage.length/(2 * blocks.size))
+            val correctKey = newKey
             newKey = stringToBinaryFormat(newKey)
 
             for(i in 0 until quantityOfRounds){
@@ -67,7 +68,8 @@ class lab4 {
             }
             codeMessage = stringBinaryToNormalFormat(codeMessage)
 
-            println("новый ключ : $newKey")
+            //println("новый ключ : $newKey")
+            println("ключ : $correctKey")
             println("сообщение : $codeMessage")
             return KeyMessage(newKey, codeMessage)
         }
@@ -76,6 +78,12 @@ class lab4 {
             val newMessage = stringToBinaryFormat(message)
             var newKey = stringToBinaryFormat(key)
             val blocks = cutBinaryStringIntoBlocks(newMessage)
+
+
+            for(i in 0 until quantityOfRounds - 1){
+                newKey = keyToNextRound(newKey)
+            }
+
             for(i in 0 until quantityOfRounds){
                 for(j in blocks.indices){
                     blocks[j] = decodeDESOneRound(blocks[j], newKey)
@@ -119,22 +127,53 @@ class lab4 {
 
         //вычисление ключа для следующего раунда шифрования. циклический сдвиг >> 2
         private fun keyToNextRound(key: String): String {
-            var output = key
-            for(i in 0 until shiftKey){
-                output = output[output.length - 1] + output
-                output = output.removeRange(output.length - 1, output.lastIndex)
+            var output = stringBinaryToNormalFormat(key)
+            for(i in 0 until 1){
+                //output = output[output.lastIndex] + output
+                var temp = ""
+                temp += output[output.lastIndex]
+                for(j in 0..output.length - 2){
+                    temp += output[j]
+                }
+                output = temp
+                //output = temp.removeRange(temp.length - 2, temp.lastIndex)
+//                output = output[output.lastIndex] + output
+//                output = output.removeRange(output.length - 2, output.lastIndex)
             }
+            println(output)
+            output = stringToBinaryFormat(output)
             return output
         }
 
+//        //вычисление ключа для следующего раунда шифрования. циклический сдвиг >> 2
+//        private fun keyToNextRound(key: String): String {
+//            var output = key
+//            for(i in 0 until shiftKey){
+//                output = output[output.length - 1] + output
+//                output = output.removeRange(output.length - 1, output.lastIndex)
+//            }
+//            println(stringBinaryToNormalFormat(output))
+//            return output
+//        }
+
+//        //вычисление ключа для следующего раунда расшифровки. циклический сдвиг << 2
+//        private fun keyToPrevRound(key: String): String {
+//            var output = key
+//            for (i in 0 until shiftKey){
+//                output += output[0]
+//                output = output.removeRange(0, 1)
+//            }
+//            return output
+//        }
+
         //вычисление ключа для следующего раунда расшифровки. циклический сдвиг << 2
         private fun keyToPrevRound(key: String): String {
-            var output = key
-            for (i in 0 until shiftKey){
+            var output = stringBinaryToNormalFormat(key)
+            for (i in 0 until 1){
                 output += output[0]
                 output = output.removeRange(0, 1)
             }
-            return output
+            return stringToBinaryFormat(output)
         }
 
         private fun encodeDESOneRound(input: String, key: String): String{
