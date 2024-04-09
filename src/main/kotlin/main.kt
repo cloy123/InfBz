@@ -1,8 +1,33 @@
+import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.pow
 
 fun main() {
-    lab6.start()
+    val list = ArrayList<String>()
+    val file = File("test.txt")
+     file.forEachLine { line: String ->
+         if(!list.contains(line.trim())){
+             list.add(line.trim())
+         }
+     }
+    list.sort()
+    println(list.size)
+    for(i in list.indices){
+        println((i + 1).toString() + " " + list[i])
+    }
+
+//    var inputStr = ""
+//    while (inputStr != "1"){
+//        inputStr = readLine().toString()
+//        if(!list.contains(inputStr)){
+//            list.add(inputStr)
+//        }
+//    }
+//    for(i in inputStr.indices){
+//        println((i + 1).toString() + " " + list[i])
+//    }
+    //lab6.start()
 }
 
 

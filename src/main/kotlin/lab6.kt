@@ -41,6 +41,8 @@ class lab6 {
         init {
             val p = BigInteger.probablePrime(128, random)
             val q = BigInteger.probablePrime(128, random)
+            println("p="  + p)
+            println("q=" + q)
             val phi = (p - BigInteger.ONE) * (q - BigInteger.ONE)
             n = p * q
             publicKey = BigInteger("65537")//BigInteger("2")
