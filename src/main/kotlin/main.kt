@@ -4,18 +4,19 @@ import kotlin.collections.ArrayList
 import kotlin.math.pow
 
 fun main() {
-    val list = ArrayList<String>()
-    val file = File("test.txt")
-     file.forEachLine { line: String ->
-         if(!list.contains(line.trim())){
-             list.add(line.trim())
-         }
-     }
-    list.sort()
-    println(list.size)
-    for(i in list.indices){
-        println((i + 1).toString() + " " + list[i])
-    }
+    lab8_2.start()
+//    val list = ArrayList<String>()
+//    val file = File("test.txt")
+//     file.forEachLine { line: String ->
+//         if(!list.contains(line.trim())){
+//             list.add(line.trim())
+//         }
+//     }
+//    list.sort()
+//    println(list.size)
+//    for(i in list.indices){
+//        println((i + 1).toString() + " " + list[i])
+//    }
 
 //    var inputStr = ""
 //    while (inputStr != "1"){
