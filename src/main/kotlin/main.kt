@@ -4,7 +4,7 @@ import kotlin.collections.ArrayList
 import kotlin.math.pow
 
 fun main() {
-    lab8_2.start()
+    lab7.start()
 //    val list = ArrayList<String>()
 //    val file = File("test.txt")
 //     file.forEachLine { line: String ->

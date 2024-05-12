@@ -1,3 +1,4 @@
+
 import java.nio.charset.StandardCharsets
 import java.security.*
 import java.security.spec.X509EncodedKeySpec
@@ -14,17 +15,25 @@ class lab7 {
     }
 
     private class Authentication{
-        lateinit var aliceKeySignature: KeyPair
-        lateinit var alicePubKeyBlob: ByteArray
+        lateinit var bobKeySignature: KeyPair
+        lateinit var bobPubKeyBlob: ByteArray
 
         fun main(){
             createKeys()
 
-            val bobData = "Bob".toByteArray(StandardCharsets.UTF_8)
-            val bobSignature = createSignature(bobData, aliceKeySignature.private)
-            println("Bob created signature: ${Base64.getEncoder().encodeToString(bobSignature)}")
+            val bobData = "Какие-то данные боба".toByteArray(StandardCharsets.UTF_8)
+            println("Данные = ${String(bobData, Charsets.UTF_8)}")
+            val bobSignature = createSignature(bobData, bobKeySignature.private)
 
-            if (verifySignature(bobData, bobSignature, alicePubKeyBlob)) {
+            println("публичный ключ = ${Base64.getEncoder().encodeToString(bobKeySignature.public.encoded)}\n${bobKeySignature.public}")
+            val privateKeyBytes: ByteArray = bobKeySignature.private.encoded
+            val base64String: String = Base64.getEncoder().encodeToString(privateKeyBytes)
+            val hexString: String = privateKeyBytes.joinToString("") { "%02x".format(it) }
+            println("секретный ключ = $base64String")
+
+            println("Цифровая подпись боба: ${Base64.getEncoder().encodeToString(bobSignature)}")
+
+            if (verifySignature(bobData, bobSignature, bobPubKeyBlob)) {
                 println("Подпись Боба была успешно проверена")
             }
         }
@@ -32,8 +41,8 @@ class lab7 {
         private fun createKeys() {
             val keyPairGenerator = KeyPairGenerator.getInstance("EC")
             keyPairGenerator.initialize(256)
-            aliceKeySignature = keyPairGenerator.generateKeyPair()
-            alicePubKeyBlob = aliceKeySignature.public.encoded
+            bobKeySignature = keyPairGenerator.generateKeyPair()
+            bobPubKeyBlob = bobKeySignature.public.encoded
         }
 
         private fun createSignature(data: ByteArray, key: PrivateKey): ByteArray {
@@ -50,7 +59,6 @@ class lab7 {
             val keyFactory = KeyFactory.getInstance("EC")
             val publicKeySpec = X509EncodedKeySpec(pubKey)
             val publicKey = keyFactory.generatePublic(publicKeySpec)
-
             val signingAlg = Signature.getInstance("SHA256withECDSA")
             signingAlg.initVerify(publicKey)
             signingAlg.update(data)
